@@ -3,24 +3,18 @@
 const mysql = require('mysql');
 
 const {
-  DATABASE_HOST,
-  DATABASE_USER,
-  DATABASE_PASSWD,
-  DATABASE_NAME,
-  DATABASE_PORT
+  DATABASE_HOST: host,
+  DATABASE_USER: user,
+  DATABASE_PASSWD: password,
+  DATABASE_NAME: database,
+  DATABASE_PORT: port
 } = process.env;
 
-const dbConn = mysql.createConnection({
-  host     : DATABASE_HOST,
-  user     : DATABASE_USER,
-  password : DATABASE_PASSWD,
-  database : DATABASE_NAME,
-  port     : DATABASE_PORT
-});
+const dbConn = mysql.createConnection({host, user, password, database, port});
 
 dbConn.connect(function(err) {
   if (err) throw err;
-  console.log("Database Connected!");
+  console.log("MySQL connected!");
 });
 
 module.exports = dbConn;
