@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = 5000;
+const port = 5001;
 
 var corsOptions = {
   origin: '*',
@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // API Route
-// const fileRoutes = require('./routes/files.routes');
-// app.use(`/files`, fileRoutes);
+const bizRoutes = require('./routes/biz.route');
+app.use(`/biz`, bizRoutes);
 
 // 404
 app.get('*', (req, res) => {
