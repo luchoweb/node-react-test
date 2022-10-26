@@ -2,14 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = 5001;
+const { PORT = 0 } = process.env;
+const ApiKeyMiddleware = require('./middlewares/apikey.middleware');
 
-var corsOptions = {
+app.use(cors({
   origin: '*',
   methods: 'GET',
   optionsSuccessStatus: 200
-}
-app.use(cors(corsOptions));
+}));
+
+// Check API Key
+app.use(ApiKeyMiddleware.check);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,8 +29,8 @@ app.get('*', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+const server = app.listen(PORT, () => {
+  console.log(`Server listening on port ${server.address().port}`);
 });
 
-module.exports = app;
+module.exports = server;
