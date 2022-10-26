@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 // Check API Key
-app.use(ApiKeyMiddleware.check);
+//app.use(ApiKeyMiddleware.check);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
