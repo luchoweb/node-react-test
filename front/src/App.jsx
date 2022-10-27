@@ -66,7 +66,9 @@ function App() {
           <PrivateRoute path="/dashboard/product/edit/:id" component={DashboardPage} />
           <PrivateRoute path="/dashboard/product/delete/:id" component={DashboardPage} />
 
-          <Route path="*" component={NotFoundPage} />
+          <Route path="*">
+            {user?.info?.username ? <Redirect to="/dashboard" /> : <NotFoundPage />}
+          </Route>
         </Switch>
       }
     </Router>

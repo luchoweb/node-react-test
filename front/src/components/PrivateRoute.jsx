@@ -4,7 +4,7 @@ import useAuthCognito from "../hooks/useAuthCognito";
 const PrivateRoute = ({ component: Component, path }) => {
   const { state } = useAuthCognito();
   return (
-    <Route exact path={path}>
+    <Route path={path}>
       { state?.user?.info?.username ? <Component /> : <Redirect to="/" /> }
     </Route>
   )

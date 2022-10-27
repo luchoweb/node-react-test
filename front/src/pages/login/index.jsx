@@ -15,7 +15,10 @@ const LoginPage = () => {
       const user = await Auth.signIn(data.email, data.password);
       dispatch({
         type: 'USER_SESSION',
-        payload: user
+        payload: {
+          info: user,
+          loading: true
+        }
       })
     } catch (error) {
       console.log('error signing in', error);
@@ -26,7 +29,7 @@ const LoginPage = () => {
   return (
     <div className="login">
       <div className="container">
-        <h2 className='mb-3'>Log in</h2>
+        <h2 className='mb-3 text-center'>Sign In</h2>
 
         {loginError &&
           <div className="alert alert-danger mb-3">
@@ -42,7 +45,7 @@ const LoginPage = () => {
                 required: "required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "invalid email address"
+                  message: "Invalid email address"
                 }
               })}
               type="email"
@@ -58,7 +61,7 @@ const LoginPage = () => {
                 required: "required",
                 pattern: {
                   value: /^[A-Z0-9@#_-]{6,}$/i,
-                  message: "invalid password"
+                  message: "Invalid password"
                 }
               })}
               type="password"
@@ -67,7 +70,7 @@ const LoginPage = () => {
             {errors.password && <span role="alert" className="form-error">{errors.password.message}</span>}
           </div>
 
-          <button className="btn btn-dark">Log in</button>
+          <button className="btn btn-dark w-100">Sign in</button>
         </form>
       </div>
     </div>
