@@ -6,19 +6,19 @@ const router = express.Router();
 const BizController = require('../controllers/biz.controller');
 
 // GET
-router.get('/', (req, res) => BizController.findAll(req, res));
-router.get('/:id', (req, res) => BizController.findById(req, res));
+router.get('/', BizController.findAll);
+router.get('/:id', BizController.findById);
 
 // POST
-router.post('/', (req, res) => BizController.create(req, res));
+router.post('/', BizController.create);
 
 // PUT
 router.put('/:id', (req, res) => {
-  const fields = '';
+  const fields = ['nit', 'name', 'address', 'phone'];
   BizController.update(req, res, fields);
 });
 
 // DELETE
-router.delete('/:id', (req, res) => BizController.delete(req, res));
+router.delete('/:id', BizController.delete);
 
 module.exports = router;

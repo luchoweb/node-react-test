@@ -23,6 +23,9 @@ app.use(express.json());
 const bizRoutes = require('./routes/biz.route');
 app.use(`/biz`, bizRoutes);
 
+const productRoutes = require('./routes/product.route');
+app.use(`/product`, productRoutes);
+
 // 404
 app.get('*', (req, res) => {
   res.status(404).send({

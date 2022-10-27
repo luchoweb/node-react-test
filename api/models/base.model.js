@@ -3,6 +3,8 @@
 const dbConn = require('../config/db.config');
 
 class BaseModel {
+  table;
+
   constructor(table) {
     this.table = table;
   }
@@ -14,26 +16,26 @@ class BaseModel {
     });
   }
 
-  findById(req, result) {
-    dbConn.query(`SELECT * FROM ${this.table} WHERE id = ?`, [req.param.id], (err, res) => {
+  findById(id, result) {
+    dbConn.query(`SELECT * FROM ${this.table} WHERE id = ?`, [id], (err, res) => {
       const data = err || { res: res[0] };
       result.send(data);
     });
   }
 
-  findAll(result) {
+  findAll(req, result) {
     dbConn.query(`SELECT * FROM ${this.table}`, (err, res) => {
       const data = err || res;
       result.send(data);
     });
   }
 
-  update(req, result, fields) {
+  update(id, result, values) {
     dbConn.query(`
-        UPDATE ${this.table} SET ${fields}
+        UPDATE ${this.table} SET ${values}
         WHERE id = ?
       `,
-      [req.param.id],
+      [id],
       (err, res) => {
         const data = err || res;
         result.send(data);
@@ -41,8 +43,8 @@ class BaseModel {
     );
   }
 
-  delete(req, result) {
-    dbConn.query(`DELETE FROM ${this.table} WHERE id = ?`, [req.param.id], (err, res) => {
+  delete(id, result) {
+    dbConn.query(`DELETE FROM ${this.table} WHERE id = ?`, [id], (err, res) => {
       const data = err || res;
       result.send(data);
     });

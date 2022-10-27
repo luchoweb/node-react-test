@@ -13,7 +13,10 @@ router.get('/:id', ProductController.findById);
 router.post('/', ProductController.create);
 
 // PUT
-router.put('/:id', ProductController.update);
+router.put('/:id', (req, res) => {
+  const fields = ['name', 'price', 'stock', 'biz_id'];
+  ProductController.update(req, res, fields);
+});
 
 // DELETE
 router.delete('/:id', ProductController.delete);

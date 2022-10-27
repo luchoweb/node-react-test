@@ -1,6 +1,6 @@
 'use strict';
 
 const BaseModel = require('./base.model');
-const Biz = new BaseModel('businesses');
+const BizModel = new BaseModel('businesses');
 
-module.exports = Biz;
+module.exports = BizModel;

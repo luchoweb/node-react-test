@@ -1,12 +1,14 @@
 'use strict';
 
 class BaseController {
+  model;
+
   constructor(model) {
     this.model = model;
   }
 
   findAll(req, res) {
-    this.model.findAll(res);
+    this.model.findAll(req, res);
   }
 
   findById(req, res) {
@@ -18,11 +20,15 @@ class BaseController {
   }
 
   update(req, res, fields) {
-    ProductModel.update(req, res, fields);
+    let values = '';
+    for (const field in fields) {
+      values += `${field} = ${req.body[field]},`;
+    }
+    this.model.update(req.params.id, res, values);
   }
 
   delete(req, res) {
-    ProductModel.delete(req, res);
+    this.model.delete(req.params.id, res);
   }
 }
 
