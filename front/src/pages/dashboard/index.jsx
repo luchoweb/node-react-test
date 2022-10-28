@@ -34,7 +34,7 @@ const DashboardPage = () => {
                 <h3 className="m-0">Companies</h3>
               </div>
               <div className="col-6 text-end">
-                {!isLoading && !isAdmin &&
+                {!isLoading && isAdmin &&
                   <Link className="btn btn-dark" to="/dashboard/biz/create">
                     Add company
                   </Link>
@@ -45,10 +45,12 @@ const DashboardPage = () => {
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead className="bg-dark text-white">
-                  <th className="p-2">NIT</th>
-                  <th className="p-2">Name</th>
-                  <th className="p-2">Address</th>
-                  <th className="p-2">Phone</th>
+                  <tr>
+                    <th className="p-2">NIT</th>
+                    <th className="p-2">Name</th>
+                    <th className="p-2">Address</th>
+                    <th className="p-2">Phone</th>
+                  </tr>
                 </thead>
 
                 <tbody>
