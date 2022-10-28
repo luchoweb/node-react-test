@@ -59,7 +59,7 @@ function App() {
       {user?.loading ? <LoadingSpinner /> : 
         <Switch>
           <Route exact path="/">
-            {user?.info?.username ? <Redirect to="/dashboard" /> : <LoginPage />}
+            {!user?.info?.username ? <LoginPage /> : <Redirect to="/dashboard" /> }
           </Route>
 
           <Route exact path="/dashboard">
