@@ -8,11 +8,9 @@ const BizForm = () => {
   const { id: bizId } = useParams();
 
   const [alert, setAlert] = useState();
-  const [business, setBusiness] = useState();
+  const [error, setError] = useState();
 
-  const { register, handleSubmit, formState: { errors } } = useForm(
-    { reValidateMode: 'onBlur' }
-  );
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const onSubmit = async(data) => {
     setAlert(null);
 
@@ -37,17 +35,31 @@ const BizForm = () => {
         message: `Company ${!bizId ? 'created' : 'updated'} successfully`
       });
     }
-
-    console.log(save);
   };
+
+  const autoFillForm = (biz) => {
+    setValue('nit', biz.nit);
+    setValue('name', biz.name);
+    setValue('address', biz.address);
+    setValue('phone', biz.phone);
+  }
 
   useEffect(() => {
     const fetchBiz = async(bizId) => {
       const biz = await getBizById(bizId);
-      setBusiness(biz);
+      if ( biz?.nit ) autoFillForm(biz);
+      if ( !biz?.nit ) {
+        setAlert({
+          type: 'warning',
+          message: `The company you are trying to update does not exist`
+        });
+        setError(404);
+      }
     }
 
     if ( bizId ) fetchBiz(bizId);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bizId]);
 
   return (
@@ -57,9 +69,11 @@ const BizForm = () => {
           { alert.message }
         </div>
       }
+
+      { !bizId || (bizId && !error) ? 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="form-horizontal mt-4"
+        className="form form-horizontal mt-4"
       >
         <div className="form-group mb-4">
           <label htmlFor="biz_nit" className="d-block mb-1">
@@ -67,7 +81,6 @@ const BizForm = () => {
           </label>
 
           <input
-            defaultValue={business?.nit}
             type="number"
             id="nit"
             placeholder="90012345"
@@ -90,14 +103,13 @@ const BizForm = () => {
           </label>
 
           <input
-            defaultValue={business?.name}
             type="text"
             id="name"
             placeholder="Company Inc."
             {...register("name", {
               required: "Name is required"
             })}
-            className={`form-control ${errors.address ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
           />
 
           {errors.name && 
@@ -113,7 +125,6 @@ const BizForm = () => {
           </label>
 
           <input
-            defaultValue={business?.address}
             type="text"
             id="address"
             placeholder="Street 100th"
@@ -136,7 +147,6 @@ const BizForm = () => {
           </label>
 
           <input
-            defaultValue={business?.phone}
             type="number"
             id="phone"
             placeholder="12345678"
@@ -157,6 +167,7 @@ const BizForm = () => {
           {!bizId ? 'Create' : 'Update'} Company
         </button>
       </form>
+      : '' }
     </>
   )
 }
