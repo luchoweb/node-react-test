@@ -8,6 +8,7 @@ const ProductController = require('../controllers/product.controller');
 // GET
 router.get('/', ProductController.findAll);
 router.get('/:id', ProductController.findById);
+router.get('/biz/:id', ProductController.findByBizId);
 
 // POST
 router.post('/', ProductController.create);

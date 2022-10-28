@@ -8,7 +8,8 @@ const ProductController = new BaseController(ProductModel);
 module.exports = {
   findAll: (req, res) => ProductController.findAll(req, res),
   findById: (req, res) => ProductController.findById(req, res),
+  findByBizId: (req, res) => ProductController.findByBizId(req, res),
   create: (req, res) => ProductController.create(req, res),
   update: (req, res, fields) => ProductController.update(req, res, fields),
-  delete: (req, res) => ProductController.delete(req, res)
+  delete: (req, res) => ProductController.delete(req, res),
 };

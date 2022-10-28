@@ -15,6 +15,10 @@ class BaseController {
     this.model.findById(req.params.id, res);
   }
 
+  findByBizId(req, res) {
+    this.model.findByBizId(req.params.id, res);
+  }
+
   create(req, res) {
     this.model.create(req.body, res);
   }
