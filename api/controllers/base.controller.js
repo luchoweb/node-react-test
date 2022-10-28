@@ -21,9 +21,13 @@ class BaseController {
 
   update(req, res, fields) {
     let values = '';
-    for (const field in fields) {
-      values += `${field} = ${req.body[field]},`;
-    }
+
+    fields.forEach((field, index) => {
+      if ( index < fields.length ) {
+        values += `${field} = '${req.body[field]}'${index < (fields.length - 1) ? ', ': ''}`;
+      }
+    });
+
     this.model.update(req.params.id, res, values);
   }
 

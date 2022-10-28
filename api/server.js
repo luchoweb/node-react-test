@@ -9,7 +9,7 @@ const ApiKeyMiddleware = require('./middlewares/apikey.middleware');
 
 app.use(cors({
   origin: '*',
-  methods: 'GET',
+  methods: ['GET', 'PUT', 'DELETE'],
   optionsSuccessStatus: 200
 }));
 
