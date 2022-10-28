@@ -62,12 +62,16 @@ function App() {
             <PrivateRoute component={DashboardPage} />
           </Route>
 
+          <Route exact path="/dashboard/biz/:id">
+            <PrivateRoute component={BizPage} />
+          </Route>
+
           <Route exact path="/dashboard/biz/create">
             <PrivateRoute component={BizCreatePage} />
           </Route>
 
-          <Route exact path="/dashboard/biz/:id">
-            <PrivateRoute component={BizPage} />
+          <Route exact path="/dashboard/biz/edit/:id">
+            <PrivateRoute component={BizCreatePage} />
           </Route>
 
           <Route path="*">

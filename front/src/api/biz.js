@@ -22,3 +22,15 @@ export const saveBiz = async (bizData) => {
 
   return await response.json();
 }
+
+export const updateBiz = async (bizId, bizData) => {
+  const response = await fetch(`${API_URL}/biz/${bizId}`,{
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(bizData)
+  });
+
+  return await response.json();
+}
