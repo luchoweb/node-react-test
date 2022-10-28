@@ -1,43 +1,42 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getBizById } from "../../../api/biz";
+import { getProductById } from "../../../api/product";
 import { userRoleValidation } from "../../../helpers/userRoleValidation";
 import useAuthCognito from "../../../hooks/useAuthCognito";
-import BizLayout from "./layout";
+import ProductLayout from "./layout";
 
-const BizPage = () => {
-  const { id: bizId } = useParams();
+const ProductPage = () => {
+  const { id: productId } = useParams();
   const { state } = useAuthCognito();
   const isAdmin = userRoleValidation(state?.user?.info);
 
-  const [business, setBusiness] = useState();
+  const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBiz = async () => {
-      const response = await getBizById(bizId);
-      setBusiness(response);
+      const response = await getProductById(productId);
+      setProduct(response);
     }
 
-    if ( !business ) fetchBiz();
+    if ( !product ) fetchBiz();
 
     return () => setIsLoading(false);
-  }, [bizId, business]);
+  }, [productId, product]);
 
   return (
-    <BizLayout>
+    <ProductLayout>
     {isLoading ? 
       <p>Loading data, please wait...</p>
-    : business ?
+    : product ?
       <>
         <div className="row align-items-center mb-4">
           <div className="col-12 col-md-6">
-            <h2 className="mt-0">{ business.name }</h2>
+            <h2 className="mt-0">{ product.name }</h2>
 
             <ul className="list-unstyled m-0 p-0 d-flex gap-4 flex-wrap">
-              <li><strong>NIT</strong>: { business.nit }</li>
-              <li><strong>Address</strong>: { business.address }</li>
-              <li><strong>Phone</strong>: { business.phone }</li>
+              <li><strong>Price</strong>: { product.price }</li>
+              <li><strong>Stock</strong>: { product.stock }</li>
             </ul>
           </div>
           <div className="col-12 col-md-6 text-end">
@@ -45,13 +44,13 @@ const BizPage = () => {
               <>
                 <Link
                   className="btn btn-primary me-2"
-                  to={`/dashboard/biz/edit/${business.id}`}
+                  to={`/dashboard/product/edit/${product.id}`}
                 >
                   Edit
                   </Link>
                   <Link
                     className="btn btn-danger"
-                    to={`/dashboard/biz/delete/${business.id}`}
+                    to={`/dashboard/product/delete/${product.id}`}
                   >
                     Delete
                   </Link>
@@ -59,20 +58,6 @@ const BizPage = () => {
             }
           </div>
         </div>
-
-        <hr />
-
-        <div className="row align-items-center mt-4">
-          <div className="col-6">
-            <h4>Products</h4>
-          </div>
-          <div className="col-6 text-end">
-            {isAdmin &&
-              <Link className="btn btn-dark" to={`/dashboard/product/create/${business.nit}`}>Add Product</Link>
-            }
-          </div>
-        </div>
-        <p>TODO</p>
       </>
     :
       <>
@@ -82,12 +67,12 @@ const BizPage = () => {
         </div>
 
         <Link to="/dashboard" className="text-dark">
-          Go to dashboard home
+          Go to dashboard
         </Link>
       </>
     }
-    </BizLayout>
+    </ProductLayout>
   )
 }
 
-export default BizPage;
+export default ProductPage;
