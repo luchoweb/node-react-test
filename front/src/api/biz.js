@@ -34,3 +34,9 @@ export const updateBiz = async (bizId, bizData) => {
 
   return await response.json();
 }
+
+export const deleteBiz = async (bizId) => {
+  const response = await fetch(`${API_URL}/biz/${bizId}`, { method: 'DELETE' });
+  const biz = await response.json();
+  return biz;
+}

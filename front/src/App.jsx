@@ -14,9 +14,10 @@ import NotFoundPage from "./pages/404";
 import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboard";
 import BizPage from "./pages/dashboard/biz";
+import BizCreatePage from "./pages/dashboard/biz/create";
+import BizDeletePage from "./pages/dashboard/biz/delete";
 
 import awsmobile from './aws-exports';
-import BizCreatePage from "./pages/dashboard/biz/create";
 Amplify.configure(awsmobile);
 
 function App() {
@@ -72,6 +73,10 @@ function App() {
 
           <Route exact path="/dashboard/biz/edit/:id">
             <PrivateRoute component={BizCreatePage} />
+          </Route>
+
+          <Route exact path="/dashboard/biz/delete/:id">
+            <PrivateRoute component={BizDeletePage} />
           </Route>
 
           <Route path="*">

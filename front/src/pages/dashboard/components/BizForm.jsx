@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getBizById, saveBiz, updateBiz } from "../../../api/biz";
 import { codeErrorsTranslate } from "../../../helpers/codeErrors";
 
 const BizForm = () => {
   const { id: bizId } = useParams();
+  const history = useHistory();
 
   const [alert, setAlert] = useState();
   const [error, setError] = useState();
@@ -66,7 +67,7 @@ const BizForm = () => {
     <>
       {alert && 
         <div className={`alert alert-${alert.type} mt-4`}>
-          { alert.message }
+          { alert.message }.
         </div>
       }
 
@@ -163,8 +164,12 @@ const BizForm = () => {
           }
         </div>
 
-        <button className="btn btn-dark">
+        <button className="btn btn-dark me-3">
           {!bizId ? 'Create' : 'Update'} Company
+        </button>
+
+        <button className="btn btn-secondary" onClick={() => history.goBack()}>
+          Cancel
         </button>
       </form>
       : '' }
