@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProductById } from "../../../api/product";
 import { userRoleValidation } from "../../../helpers/userRoleValidation";
 import useAuthCognito from "../../../hooks/useAuthCognito";
-import ProductLayout from "./layout";
+import Layout from "../layout";
 
 const ProductPage = () => {
   const { id: productId } = useParams();
@@ -25,7 +25,7 @@ const ProductPage = () => {
   }, [productId, product]);
 
   return (
-    <ProductLayout>
+    <Layout>
     {isLoading ? 
       <p>Loading data, please wait...</p>
     : product ?
@@ -71,7 +71,7 @@ const ProductPage = () => {
         </Link>
       </>
     }
-    </ProductLayout>
+    </Layout>
   )
 }
 

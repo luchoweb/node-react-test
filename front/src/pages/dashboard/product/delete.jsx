@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { deleteProduct } from "../../../api/product";
-import BizLayout from "./layout";
+import Layout from "../layout";
 
 const ProductDeletePage = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ const ProductDeletePage = () => {
   }
 
   return (
-    <BizLayout>
+    <Layout>
       <h3 className="m-0 mb-4">Delete product</h3>
 
       <h4>Are you sure?</h4>
@@ -62,7 +62,7 @@ const ProductDeletePage = () => {
         </>
       }
 
-    </BizLayout>
+    </Layout>
   )
 }
 

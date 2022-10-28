@@ -1,13 +1,13 @@
-import BizLayout from "./layout";
+import Layout from "../layout";
 import ProductForm from "../components/ProductForm";
 
 const ProductCreatePage = () => {
   return (
-    <BizLayout>
+    <Layout>
       <h3 className="m-0">New product</h3>
 
       <ProductForm />
-    </BizLayout>
+    </Layout>
   )
 }
 

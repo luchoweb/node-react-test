@@ -4,7 +4,7 @@ import { getBizById } from "../../../api/biz";
 import { getProductsByBiz } from "../../../api/product";
 import { userRoleValidation } from "../../../helpers/userRoleValidation";
 import useAuthCognito from "../../../hooks/useAuthCognito";
-import BizLayout from "./layout";
+import Layout from "../layout";
 
 const BizPage = () => {
   const { id: bizId } = useParams();
@@ -32,7 +32,7 @@ const BizPage = () => {
   }, [bizId, business]);
 
   return (
-    <BizLayout>
+    <Layout>
     {isLoading ? 
       <p>Loading data, please wait...</p>
     : business ?
@@ -139,7 +139,7 @@ const BizPage = () => {
         </Link>
       </>
     }
-    </BizLayout>
+    </Layout>
   )
 }
 
