@@ -23,6 +23,13 @@ class BaseModel {
     });
   }
 
+  findByBizId(biz_id, result) {
+    dbConn.query(`SELECT * FROM ${this.table} WHERE biz_id = ?`, [biz_id], (err, res) => {
+      const data = err || { res: res };
+      result.send(data);
+    });
+  }
+
   findAll(req, result) {
     dbConn.query(`SELECT * FROM ${this.table}`, (err, res) => {
       const data = err || res;
