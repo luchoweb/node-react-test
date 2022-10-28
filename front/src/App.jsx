@@ -13,8 +13,10 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import NotFoundPage from "./pages/404";
 import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboard";
+import BizPage from "./pages/dashboard/biz";
 
 import awsmobile from './aws-exports';
+import BizCreatePage from "./pages/dashboard/biz/create";
 Amplify.configure(awsmobile);
 
 function App() {
@@ -56,15 +58,17 @@ function App() {
             {user?.info?.username ? <Redirect to="/dashboard" /> : <LoginPage />}
           </Route>
 
-          <PrivateRoute path="/dashboard" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/biz/create" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/biz/edit/:id" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/biz/delete/:id" component={DashboardPage} />
+          <Route exact path="/dashboard">
+            <PrivateRoute component={DashboardPage} />
+          </Route>
 
-          <PrivateRoute path="/dashboard/product/export" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/product/create/:id" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/product/edit/:id" component={DashboardPage} />
-          <PrivateRoute path="/dashboard/product/delete/:id" component={DashboardPage} />
+          <Route exact path="/dashboard/biz/create">
+            <PrivateRoute component={BizCreatePage} />
+          </Route>
+
+          <Route exact path="/dashboard/biz/:id">
+            <PrivateRoute component={BizPage} />
+          </Route>
 
           <Route path="*">
             {user?.info?.username ? <Redirect to="/dashboard" /> : <NotFoundPage />}

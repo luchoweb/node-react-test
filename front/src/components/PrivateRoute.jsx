@@ -1,13 +1,11 @@
-import { Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import useAuthCognito from "../hooks/useAuthCognito";
 
-const PrivateRoute = ({ component: Component, path }) => {
+const PrivateRoute = ({ component: Component }) => {
   const { state } = useAuthCognito();
-  return (
-    <Route path={path}>
-      { state?.user?.info?.username ? <Component /> : <Redirect to="/" /> }
-    </Route>
-  )
+  const username = state?.user?.info?.username;
+
+  return username ? <Component /> : <Redirect to="/" />;
 }
 
 export default PrivateRoute;
