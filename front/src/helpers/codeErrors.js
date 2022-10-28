@@ -4,5 +4,5 @@ export const codeErrorsTranslate = (code) => {
     'ER_DUP_ENTRY': 'There is already a company registered with this NIT'
   }
 
-  return translations[code];
+  return translations[code] || 'An error has ocurred, please try again';
 }

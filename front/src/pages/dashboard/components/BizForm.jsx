@@ -34,7 +34,7 @@ const BizForm = () => {
     if ( save?.affectedRows === 1 ) {
       setAlert({
         type: 'success',
-        message: 'Company created successfully'
+        message: `Company ${!bizId ? 'created' : 'updated'} successfully`
       });
     }
 
