@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getBizById, saveBiz, updateBiz } from "../../../api/biz";
 import { codeErrorsTranslate } from "../../../helpers/codeErrors";
 
-const BizForm = () => {
-  const { id: bizId } = useParams();
+const BizForm = ({ bizId }) => {
   const history = useHistory();
 
   const [alert, setAlert] = useState();
@@ -169,7 +168,7 @@ const BizForm = () => {
         </button>
 
         <button className="btn btn-secondary" onClick={() => history.goBack()}>
-          Cancel
+          Back
         </button>
       </form>
       : '' }

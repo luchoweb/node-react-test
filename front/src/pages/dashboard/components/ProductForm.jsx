@@ -33,7 +33,7 @@ const ProductForm = () => {
     if ( save?.affectedRows === 1 ) {
       setAlert({
         type: 'success',
-        message: `Company ${!productId ? 'created' : 'updated'} successfully`
+        message: `Product ${!productId ? 'created' : 'updated'} successfully`
       });
     }
   };
@@ -177,7 +177,7 @@ const ProductForm = () => {
         </button>
 
         <button className="btn btn-secondary" onClick={() => history.goBack()}>
-          Cancel
+          Back
         </button>
       </form>
       : '' }

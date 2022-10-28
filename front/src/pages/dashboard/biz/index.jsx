@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getBizById } from "../../../api/biz";
+import { getProductsByBiz } from "../../../api/product";
 import { userRoleValidation } from "../../../helpers/userRoleValidation";
 import useAuthCognito from "../../../hooks/useAuthCognito";
 import BizLayout from "./layout";
@@ -11,15 +12,21 @@ const BizPage = () => {
   const isAdmin = userRoleValidation(state?.user?.info);
 
   const [business, setBusiness] = useState();
+  const [products, setProducts] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBiz = async () => {
-      const response = await getBizById(bizId);
-      setBusiness(response);
+    const fetchData = async () => {
+      const biz = await getBizById(bizId);
+      setBusiness(biz);
+
+      if ( biz?.nit ) {
+        const products = await getProductsByBiz(biz.nit);
+        setProducts(products);
+      }
     }
 
-    if ( !business ) fetchBiz();
+    if ( !business ) fetchData();
 
     return () => setIsLoading(false);
   }, [bizId, business]);
@@ -72,7 +79,53 @@ const BizPage = () => {
             }
           </div>
         </div>
-        <p>TODO</p>
+        
+        <div className="table-responsive mt-4">
+          <table className="table">
+            <thead className="bg-dark text-white">
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {products?.length && products?.map(product => (
+              <tr key={`p-${product.id}`}>
+                <td>
+                  {product.name}
+                </td>
+                <td>
+                  ${product.price}
+                </td>
+                <td>
+                  {product.stock}
+                </td>
+                <td className="text-end">
+                  {isAdmin &&
+                    <>
+                      <Link
+                        to={`/dashboard/product/edit/${product.id}`}
+                        className="btn btn-sm btn-primary me-2"
+                      >
+                        Edit
+                      </Link>
+                      
+                      <Link
+                        to={`/dashboard/product/delete/${product.id}`}
+                        className="btn btn-sm btn-danger"
+                      >
+                        Delete
+                      </Link>
+                    </>
+                  }
+                </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
       </>
     :
       <>

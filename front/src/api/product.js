@@ -11,6 +11,12 @@ export const getProductById = async (bizId) => {
   return biz.res;
 }
 
+export const getProductsByBiz = async (bizNit) => {
+  const response = await fetch(`${API_URL}/product/biz/${bizNit}`);
+  const biz = await response.json();
+  return biz.res;
+}
+
 export const saveProduct = async (bizData) => {
   const response = await fetch(`${API_URL}/product`,{
     headers: {
