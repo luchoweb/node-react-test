@@ -31,10 +31,7 @@ class BaseModel {
   }
 
   update(id, result, values) {
-    dbConn.query(`
-        UPDATE ${this.table} SET ${values}
-        WHERE id = ?
-      `,
+    dbConn.query(`UPDATE ${this.table} SET ${values} WHERE id = ?`,
       [id],
       (err, res) => {
         const data = err || res;
